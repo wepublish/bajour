@@ -5,70 +5,78 @@ import {
   styled,
   Theme,
   ThemeOptions,
-  ThemeProvider
-} from '@mui/material'
-import {theme} from '@wepublish/ui'
-import {ApiV1, FooterContainer, WebsiteBuilderProvider, WebsiteProvider} from '@wepublish/website'
-import {setDefaultOptions} from 'date-fns'
-import {de} from 'date-fns/locale'
-import {AppProps} from 'next/app'
-import getConfig from 'next/config'
-import Head from 'next/head'
-import {PartialDeep} from 'type-fest'
-import {Header} from '../src/components/header'
-import {Link} from '../src/components/link'
-import {ReactComponent as Logo} from '../src/logo.svg'
-import Script from 'next/script'
+  ThemeProvider,
+} from '@mui/material';
+import { theme } from '@wepublish/ui';
+import {
+  ApiV1,
+  FooterContainer,
+  WebsiteBuilderProvider,
+  WebsiteProvider,
+} from '@wepublish/website';
+import { setDefaultOptions } from 'date-fns';
+import { de } from 'date-fns/locale';
+import { AppProps } from 'next/app';
+import getConfig from 'next/config';
+import Head from 'next/head';
+import { PartialDeep } from 'type-fest';
+import { Header } from '../src/components/header';
+import { Link } from '../src/components/link';
+import { ReactComponent as Logo } from '../src/logo.svg';
+import Script from 'next/script';
 
 setDefaultOptions({
-  locale: de
-})
+  locale: de,
+});
 
 const gruppettoTheme = createTheme(theme, {
   palette: {
     primary: {
-      main: '#FEDDD2'
+      main: '#FEDDD2',
     },
     secondary: {
       main: '#770A6A',
-      light: '#A977A3'
+      light: '#A977A3',
     },
     background: {
-      default: '#fff'
-    }
+      default: '#fff',
+    },
   },
   shape: {
-    borderRadius: 3
-  }
-} as PartialDeep<Theme> | ThemeOptions)
+    borderRadius: 3,
+  },
+} as PartialDeep<Theme> | ThemeOptions);
 
 const Spacer = styled('div')`
   display: grid;
   align-items: flex-start;
   grid-template-rows: min-content 1fr min-content;
   min-height: 100vh;
-`
+`;
 
 const MainSpacer = styled('div')`
   display: grid;
   max-width: 100%;
 
-  ${({theme}) => css`
+  ${({ theme }) => css`
     ${theme.breakpoints.up('md')} {
     }
   `}
-`
+`;
 
-function CustomApp({Component, pageProps}: AppProps) {
+function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <WebsiteProvider>
-      <WebsiteBuilderProvider Head={Head} Script={Script} elements={{Link}}>
+      <WebsiteBuilderProvider Head={Head} Script={Script} elements={{ Link }}>
         <ThemeProvider theme={gruppettoTheme}>
           <CssBaseline />
 
           <Head>
             <title>Bajour Events</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1"
+            />
             <link
               rel="apple-touch-icon"
               sizes="180x180"
@@ -109,8 +117,13 @@ function CustomApp({Component, pageProps}: AppProps) {
         </ThemeProvider>
       </WebsiteBuilderProvider>
     </WebsiteProvider>
-  )
+  );
 }
 
-const {publicRuntimeConfig} = getConfig()
-export default ApiV1.createWithV1ApiClient(publicRuntimeConfig.env.API_URL!, [])(CustomApp)
+const { publicRuntimeConfig } = getConfig();
+export default ApiV1.createWithV1ApiClient(
+  publicRuntimeConfig.env.API_URL!,
+  []
+)(CustomApp);
+
+console.log('environment', publicRuntimeConfig.env);

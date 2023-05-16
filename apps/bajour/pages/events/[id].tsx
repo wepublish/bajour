@@ -1,6 +1,6 @@
 import { Container as MuiContainer, styled } from '@mui/material';
 import { ApiV1, EventContainer, EventSEO } from '@wepublish/website';
-import { GetServerSideProps } from 'next';
+import { NextPageContext } from 'next';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 
@@ -27,10 +27,14 @@ export default function EventById({ event }: EventByIdProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const { id } = params || {};
+EventById.getInitialProps = async ({ query }: NextPageContext) => {
+  if (typeof window !== 'undefined') {
+    return {};
+  }
 
+  const { id } = query || {};
   const { publicRuntimeConfig } = getConfig();
+
   const client = ApiV1.getV1ApiClient(publicRuntimeConfig.env.API_URL!, []);
   const data = await client.query({
     query: ApiV1.EventDocument,
@@ -41,11 +45,9 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
 
   if (data.data.event) {
     return {
-      props: { event: data.data.event },
+      event: data.data.event,
     };
   }
 
-  return {
-    props: {},
-  };
+  return {};
 };

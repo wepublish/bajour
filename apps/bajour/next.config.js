@@ -12,7 +12,22 @@ const nextConfig = {
   },
 
   compiler: {
-    emotion: true,
+    emotion: {
+      importMap: {
+        "@mui/material": {
+          "styled": {
+            "canonicalImport": ["@emotion/styled", "default"],
+            "styledBaseImport": ["@mui/material", "styled"]
+          }
+        },
+        "@mui/material/styles": {
+          "styled": {
+            "canonicalImport": ["@emotion/styled", "default"],
+            "styledBaseImport": ["@mui/material/styles", "styled"]
+          }
+        }
+      },
+    },
   },
 
   publicRuntimeConfig: {

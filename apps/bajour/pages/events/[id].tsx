@@ -1,11 +1,29 @@
-import { Container as MuiContainer, styled } from '@mui/material';
-import { ApiV1, EventContainer, EventSEO } from '@wepublish/website';
+import { Container as MuiContainer, styled, css } from '@mui/material';
+import { ApiV1, EventContainer, EventSEO, EventMeta } from '@wepublish/website';
+import { Share } from '../../src/components/share';
 import { NextPageContext } from 'next';
 import getConfig from 'next/config';
 import { useRouter } from 'next/router';
 
 const Container = styled(MuiContainer)`
-  padding: ${({ theme }) => theme.spacing(5)};
+  padding: ${({ theme }) => theme.spacing(2)};
+  ${({ theme }) => css`
+    ${theme.breakpoints.up('md')} {
+      padding: ${theme.spacing(5)};
+    }
+  `}
+`;
+
+const EventWrapper = styled(EventContainer)`
+  ${EventMeta} {
+    grid-template-columns: max-content;
+
+    ${({ theme }) => css`
+      ${theme.breakpoints.up('md')} {
+        grid-template-columns: auto auto;
+      }
+    `}
+  }
 `;
 
 type EventByIdProps = {
@@ -21,7 +39,8 @@ export default function EventById({ event }: EventByIdProps) {
     <Container maxWidth="md" fixed>
       <main>
         {event && <EventSEO event={event} />}
-        <EventContainer id={id as string} />
+        <EventWrapper id={id as string} />
+        <Share />
       </main>
     </Container>
   );

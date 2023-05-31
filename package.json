@@ -6,14 +6,15 @@
   "private": true,
   "dependencies": {
     "@apollo/client": "^3.3.21",
-    "graphql": "^15.8.0",
     "@emotion/react": "11.10.6",
     "@emotion/server": "11.10.0",
     "@emotion/styled": "11.10.6",
     "@nx/next": "16.1.4",
     "@wepublish/ui": "^0.0.10",
     "@wepublish/website": "^0.0.11",
+    "graphql": "^15.8.0",
     "next": "13.3.0",
+    "polished": "^4.2.2",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "^2.3.0"
